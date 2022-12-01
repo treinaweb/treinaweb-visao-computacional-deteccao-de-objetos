@@ -1,22 +1,18 @@
 from imageai.Detection import VideoObjectDetection
 import os
-import cv2
 
-path_execucao = os.getcwd()
-
-camera = cv2.VideoCapture(0)
+execution_path = os.getcwd()
 
 detector = VideoObjectDetection()
 detector.setModelTypeAsYOLOv3()
-detector.setModelPath(os.path.join(path_execucao, "model/yolo.h5"))
-detector.loadModel()
+detector.setModelPath(os.path.join(execution_path, "model/yolo.h5"))
+detector.loadModel(detection_speed="fast")
 
 video_path = detector.detectObjectsFromVideo(
-    camera_input=camera,
-    output_file_path=os.path.join(path_execucao, "Img/camera_detected"),
-    frames_per_second=20,
-    log_progress=True,
-    minimum_percentage_probability=30
+    input_file_path= os.path.join(execution_path, "traffic.mp4"),
+    output_file_path= os.path.join(execution_path, "traffic_detected"),
+    frames_per_second= 20,
+    log_progress=True
 )
 
 print(video_path)
